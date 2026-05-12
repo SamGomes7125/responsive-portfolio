@@ -3,43 +3,765 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Swarnabha Ghosh | Portfolio</title>
+  <title>Swarnabha Ghosh | Data Science & AI</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <!-- Devicon Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* =====================
+       RESET & VARIABLES
+    ===================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --bg3: #1a1a24;
+      --text: #f0f0f5;
+      --muted: #8888aa;
+      --accent: #6c63ff;
+      --accent2: #ff6b6b;
+      --accent3: #00d9a3;
+      --border: rgba(255,255,255,0.07);
+      --heading-font: "Syne", sans-serif;
+      --body-font: "DM Sans", sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body-font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* =====================
+       NAV
+    ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--heading-font);
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* =====================
+       HERO
+    ===================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(108,99,255,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(0,217,163,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent3);
+      margin-bottom: 1.5rem;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid rgba(0,217,163,0.3);
+      border-radius: 2rem;
+    }
+
+    .hero h1 {
+      font-family: var(--heading-font);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 .line2 { color: var(--accent); }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 0.8rem 1.8rem;
+      background: var(--accent);
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(108,99,255,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(108,99,255,0.5);
+    }
+
+    .btn-ghost {
+      padding: 0.8rem 1.8rem;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      background: rgba(108,99,255,0.05);
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .profile-img {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      position: relative;
+      z-index: 1;
+      filter: grayscale(20%);
+    }
+
+    .profile-ring {
+      position: absolute;
+      top: -12px; left: -12px; right: -12px; bottom: -12px;
+      border-radius: 50%;
+      border: 1px solid rgba(108,99,255,0.25);
+      animation: spin 20s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      font-size: 1.5rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    /* =====================
+       SECTION LAYOUT
+    ===================== */
+    section {
+      padding: 6rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-family: var(--heading-font);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+
+    /* =====================
+       ABOUT
+    ===================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+
+    .about-text p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: var(--heading-font);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* =====================
+       SKILLS
+    ===================== */
+    #skills { background: var(--bg2); max-width: 100%; padding: 6rem 0; }
+    #skills .inner { max-width: 1100px; margin: 0 auto; padding: 0 4rem; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .skill-group {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: border-color 0.2s;
+    }
+
+    .skill-group:hover { border-color: rgba(108,99,255,0.3); }
+
+    .skill-group h4 {
+      font-family: var(--heading-font);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.2rem;
+      color: var(--accent3);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      font-size: 0.78rem;
+      padding: 0.3rem 0.7rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* =====================
+       PROJECTS
+    ===================== */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(108,99,255,0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .project-img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 180px;
+      background: var(--bg3);
+    }
+
+    .project-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+      opacity: 0.85;
+    }
+
+    .project-card:hover .project-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .project-badge {
+      position: absolute;
+      top: 0.8rem;
+      left: 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 3px;
+    }
+
+    .badge-ml { background: rgba(108,99,255,0.85); color: white; }
+    .badge-sql { background: rgba(0,217,163,0.85); color: #0a0a0f; }
+    .badge-cv { background: rgba(255,107,107,0.85); color: white; }
+
+    .project-body {
+      padding: 1.6rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card h3 {
+      font-family: var(--heading-font);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.88rem;
+      flex: 1;
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-tech span {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      background: rgba(108,99,255,0.1);
+      border: 1px solid rgba(108,99,255,0.2);
+      border-radius: 3px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.7rem;
+    }
+
+    .project-links a {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .link-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .link-primary:hover { background: #5a52e0; }
+
+    .link-ghost {
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .link-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* =====================
+       EXPERIENCE & EDUCATION
+    ===================== */
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .timeline-col h3 {
+      font-family: var(--heading-font);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent3);
+      margin-bottom: 2rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 2rem;
+      border-left: 1px solid var(--border);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -4px; top: 6px;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .timeline-item strong {
+      display: block;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-item .role {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-item .date {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* =====================
+       CERTIFICATIONS
+    ===================== */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .cert-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .cert-card:hover { border-color: rgba(108,99,255,0.3); }
+
+    .cert-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .cert-info strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .cert-info span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* =====================
+       CONTACT
+    ===================== */
+    #contact { background: var(--bg2); max-width: 100%; padding: 6rem 0; }
+    #contact .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .contact-text h2 { margin-bottom: 1rem; }
+
+    .contact-text p {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-item:hover { color: var(--text); }
+
+    .contact-item .icon {
+      width: 38px; height: 38px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-visual {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    .contact-visual h3 {
+      font-family: var(--heading-font);
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-visual p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.8rem;
+    }
+
+    /* =====================
+       FOOTER
+    ===================== */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* =====================
+       FADE IN ANIMATION
+    ===================== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =====================
+       RESPONSIVE
+    ===================== */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .nav-links { display: none; }
+      .hero { padding: 7rem 2rem 4rem; }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-image { display: none; }
+      .hero-cta { justify-content: center; }
+      section { padding: 4rem 2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .project-grid { grid-template-columns: 1fr 1fr; }
+      .timeline { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: 1fr 1fr; }
+      #contact .inner { grid-template-columns: 1fr; }
+      #skills .inner { padding: 0 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      .project-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">SG<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
   <!-- HERO -->
-  <header class="hero">
-    <div class="hero-content">
-      <img src="images/profile.jpg" alt="Swarnabha Ghosh" class="profile-img">
-
-      <h1>Swarnabha Ghosh</h1>
-      <p class="subtitle">
-        AI & Data Science Enthusiast · Engineering Student
-      </p>
-
-      <div class="social-links">
-        <a href="https://github.com/SamGomes7125" target="_blank" aria-label="GitHub">
-          <i class="devicon-github-original"></i>
-        </a>
-
-        <a href="https://linkedin.com/in/swarnabha-ghosh777" target="_blank" aria-label="LinkedIn">
-          <i class="devicon-linkedin-plain"></i>
-        </a>
-
-        <a href="https://huggingface.co/Sam-Gomes7125" target="_blank" aria-label="Hugging Face">
-          🤗
-        </a>
+  <header class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-tag">Open to Internships · Melbourne, AU</div>
+        <h1>
+          Swarnabha<br>
+          <span class="line2">Ghosh.</span>
+        </h1>
+        <p class="hero-desc">
+          AI & Data Science Engineering student at RMIT University Melbourne —
+          building recommendation systems, SQL pipelines, and computer vision
+          models that solve real problems.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">View Projects</a>
+          <a href="mailto:swarnabhaghosh2005@gmail.com" class="btn-ghost">Get in Touch</a>
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/SamGomes7125" target="_blank" aria-label="GitHub">
+            <i class="devicon-github-original"></i>
+          </a>
+          <a href="https://linkedin.com/in/swarnabha-ghosh777" target="_blank" aria-label="LinkedIn">
+            <i class="devicon-linkedin-plain"></i>
+          </a>
+          <a href="https://huggingface.co/Sam-Gomes7125" target="_blank" aria-label="Hugging Face">🤗</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="profile-ring"></div>
+        <img src="images/profile.jpg" alt="Swarnabha Ghosh" class="profile-img">
       </div>
     </div>
   </header>
@@ -47,71 +769,180 @@
   <main>
 
     <!-- ABOUT -->
-    <section class="about">
-      <h2>About Me</h2>
-      <p>
-        Third-year Electronics & Computer Systems Engineering student at RMIT with
-        a strong interest in artificial intelligence, machine learning, and
-        startup-driven innovation. Experienced in computer vision, NLP, and
-        full-stack ML deployment through academic projects and virtual internships.
-      </p>
+    <section id="about" class="fade-in">
+      <div class="section-label">Who I Am</div>
+      <h2>Building at the intersection<br>of data and intelligence</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm an Engineering student completing a <strong>dual degree partnership
+            between BITS Pilani (Hyderabad) and RMIT University Melbourne</strong> —
+            receiving two accredited 4-year Bachelor of Engineering degrees upon
+            graduation in 2027.
+          </p>
+          <p>
+            My focus is <strong>AI, Machine Learning, and Data Science</strong> —
+            specifically building end-to-end pipelines that go from raw data all the
+            way to deployed, working systems. I care about work that has a clear
+            business purpose, not just academic exercises.
+          </p>
+          <p>
+            Currently based in <strong>Melbourne, Australia</strong> and actively
+            seeking internship opportunities in AI/ML and Data Science roles.
+          </p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-num">100K+</div>
+            <div class="stat-label">Records analysed in projects</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">3</div>
+            <div class="stat-label">End-to-end ML projects shipped</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Degrees in progress</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">470×</div>
+            <div class="stat-label">Better than random baseline</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" style="background:var(--bg2);max-width:100%;padding:6rem 0;">
+      <div style="max-width:1100px;margin:0 auto;padding:0 4rem;" class="fade-in">
+        <div class="section-label">What I Work With</div>
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h4>Machine Learning</h4>
+            <div class="skill-tags">
+              <span class="skill-tag">PyTorch</span>
+              <span class="skill-tag">TensorFlow</span>
+              <span class="skill-tag">Scikit-learn</span>
+              <span class="skill-tag">SVD</span>
+              <span class="skill-tag">TF-IDF</span>
+              <span class="skill-tag">Cosine Similarity</span>
+              <span class="skill-tag">CNNs</span>
+              <span class="skill-tag">Transfer Learning</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h4>Data & SQL</h4>
+            <div class="skill-tags">
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">SQLAlchemy</span>
+              <span class="skill-tag">Pandas</span>
+              <span class="skill-tag">NumPy</span>
+              <span class="skill-tag">Window Functions</span>
+              <span class="skill-tag">Multi-table JOINs</span>
+              <span class="skill-tag">Subqueries</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h4>Languages & Tools</h4>
+            <div class="skill-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">React Native</span>
+              <span class="skill-tag">Git & GitHub</span>
+              <span class="skill-tag">Jupyter</span>
+              <span class="skill-tag">Gradio</span>
+              <span class="skill-tag">Hugging Face</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h4>Cloud & AI</h4>
+            <div class="skill-tags">
+              <span class="skill-tag">Azure AI-900</span>
+              <span class="skill-tag">Google AI Agents</span>
+              <span class="skill-tag">LLMs</span>
+              <span class="skill-tag">Prompt Engineering</span>
+              <span class="skill-tag">NLP</span>
+              <span class="skill-tag">Computer Vision</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- PROJECTS -->
-    <section class="projects">
-      <h2>Projects</h2>
-
+    <section id="projects" class="fade-in">
+      <div class="section-label">What I've Built</div>
+      <h2>Featured Projects</h2>
       <div class="project-grid">
 
-        <!-- FoodVision Big -->
+        <!-- Olist -->
         <article class="project-card">
-          <img src="images/foodvision.png" alt="FoodVision Big project screenshot">
-
-          <h3>FoodVision Big</h3>
-          <p>
-            Food image classification system using EfficientNetB2 with live
-            deployment on Hugging Face.
-          </p>
-          <p class="tech">Python · PyTorch · CNN · Gradio</p>
-
-          <div class="links">
-            <a href="https://huggingface.co/spaces/Sam-Gomes7125/foodvision_big" target="_blank">
-              Live Demo
-            </a>
+          <div class="project-img-wrap">
+            <img src="images/olist.png" alt="Olist Recommendation Engine">
+            <span class="project-badge badge-ml">ML · SQL</span>
+          </div>
+          <div class="project-body">
+            <h3>E-Commerce Recommendation Engine</h3>
+            <p>
+              Hybrid recommendation system on 100,000+ Olist transactions.
+              Combines collaborative filtering (SVD) and content based filtering
+              (TF-IDF + cosine similarity) — 470× better than random baseline.
+            </p>
+            <div class="project-tech">
+              <span>MySQL</span><span>Python</span><span>Scikit-learn</span>
+              <span>Surprise</span><span>SQLAlchemy</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/SamGomes7125/olist-recommendation-engine" target="_blank" class="link-primary">GitHub</a>
+            </div>
           </div>
         </article>
 
-        <!-- Meditation App -->
+        <!-- SEEK -->
         <article class="project-card">
-          <img src="images/meditation.png" alt="Meditation mobile app screenshot">
-
-          <h3>Meditation Mobile App</h3>
-          <p>
-            Cross-platform meditation app built with React Native and Expo Router.
-          </p>
-          <p class="tech">React Native · Expo · NativeWind</p>
-
-          <div class="links">
-            <a href="https://github.com/SamGomes7125/simple-meditation-app-expo-react-native" target="_blank">
-              Source Code
-            </a>
+          <div class="project-img-wrap">
+            <img src="images/seek.png" alt="Australian Job Market Analysis">
+            <span class="project-badge badge-sql">SQL · EDA</span>
+          </div>
+          <div class="project-body">
+            <h3>Australian Job Market Analysis</h3>
+            <p>
+              SQL-based analysis of 30,000+ real SEEK Australia job postings.
+              Uncovered hiring patterns across cities, industries and companies
+              using window functions and multi-table joins.
+            </p>
+            <div class="project-tech">
+              <span>MySQL</span><span>Python</span><span>Pandas</span>
+              <span>SQLAlchemy</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/SamGomes7125/australian-job-market-sql-analysis" target="_blank" class="link-primary">GitHub</a>
+            </div>
           </div>
         </article>
 
-        <!-- Solar System -->
+        <!-- FoodVision -->
         <article class="project-card">
-          <img src="images/solar.png" alt="Solar system visualisation screenshot">
-
-          <h3>Solar System Visualisation</h3>
-          <p>
-            Real-time 3D solar system simulation using Three.js and WebGL.
-          </p>
-          <p class="tech">JavaScript · Three.js · WebGL</p>
-
-          <div class="links">
-            <a href="https://github.com/SamGomes7125/solar-system-visualisation" target="_blank">
-              Source Code
-            </a>
+          <div class="project-img-wrap">
+            <img src="images/foodvision.png" alt="FoodVision Big">
+            <span class="project-badge badge-cv">Computer Vision</span>
+          </div>
+          <div class="project-body">
+            <h3>FoodVision Big</h3>
+            <p>
+              Food image classification system using EfficientNetB2 trained on
+              the Food101 dataset across 101 categories. Live deployment on
+              Hugging Face Spaces with Gradio interface.
+            </p>
+            <div class="project-tech">
+              <span>PyTorch</span><span>EfficientNetB2</span>
+              <span>Gradio</span><span>Hugging Face</span>
+            </div>
+            <div class="project-links">
+              <a href="https://huggingface.co/spaces/Sam-Gomes7125/foodvision_big" target="_blank" class="link-primary">Live Demo</a>
+              <a href="https://github.com/SamGomes7125" target="_blank" class="link-ghost">GitHub</a>
+            </div>
           </div>
         </article>
 
@@ -119,70 +950,136 @@
     </section>
 
     <!-- EXPERIENCE & EDUCATION -->
-<section class="experience">
-  <h2>Experience & Education</h2>
+    <section id="experience" class="fade-in" style="background:var(--bg2);max-width:100%;padding:6rem 0;">
+      <div style="max-width:1100px;margin:0 auto;padding:0 4rem;">
+        <div class="section-label">Background</div>
+        <h2>Experience & Education</h2>
+        <div class="timeline">
+          <div class="timeline-col">
+            <h3>Education</h3>
+            <div class="timeline-item">
+              <strong>BITS Pilani & RMIT University Melbourne</strong>
+              <div class="role">Dual Degree Partnership — B.E. Electronics & Communication + B.E. Electronics & Computer Systems Engineering</div>
+              <div class="date">2023 – 2027</div>
+            </div>
+          </div>
+          <div class="timeline-col">
+            <h3>Experience</h3>
+            <div class="timeline-item">
+              <strong>BCG GenAI Job Simulation</strong>
+              <div class="role">AI Intern (Virtual) — Built an AI-powered financial chatbot using Python and LLMs</div>
+              <div class="date">2025</div>
+            </div>
+            <div class="timeline-item">
+              <strong>British Airways Data Science Simulation</strong>
+              <div class="role">Analysed customer booking data and built a predictive model for flight bookings</div>
+              <div class="date">2025</div>
+            </div>
+            <div class="timeline-item">
+              <strong>Foodbank Victoria</strong>
+              <div class="role">Warehouse Assistant (Volunteer)</div>
+              <div class="date">2025 – Present</div>
+            </div>
+            <div class="timeline-item">
+              <strong>City of Melbourne</strong>
+              <div class="role">Visitor Services (Volunteer)</div>
+              <div class="date">2024 – 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <div class="experience-grid">
-
-    <!-- Education -->
-    <div class="experience-card">
-      <h3>Education</h3>
-
-      <ul>
-        <li>
-          <strong>RMIT University</strong> — BEng (Electronics & Computer Systems)  
-          <span>2025 – 2027</span>
-        </li>
-        <li>
-          <strong>BITS Pilani, Hyderabad</strong> — BEng (Electronics & Communication)  
-          <span>2023 – 2025</span>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Experience -->
-    <div class="experience-card">
-      <h3>Experience</h3>
-
-      <ul>
-        <li>
-          <strong>BCG GenAI Job Simulation</strong> — AI Intern (Virtual)  
-          <span>2025</span>
-        </li>
-        <li>
-          <strong>British Airways Data Science Job Simulation</strong>  
-          <span>2025</span>
-        </li>
-        <li>
-          <strong>Foodbank Victoria</strong> — Warehouse Assistant (Volunteer) 
-          <span>2025 – Present</span>
-        </li>
-        <li>
-          <strong>City of Melbourne</strong> — Visitor Services (Volunteer)  
-          <span>2024 – 2025</span>
-      </ul>
-    </div>
-
-  </div>
-</section>
-
-    <!-- CONTACT -->
-    <section class="contact">
-      <h2>Contact</h2>
-      <p>📍 Melbourne, Australia</p>
-      <p>
-        📧
-        <a href="mailto:swarnabhaghosh2005@gmail.com">
-          swarnabhaghosh2005@gmail.com
-        </a>
-      </p>
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="fade-in">
+      <div class="section-label">Credentials</div>
+      <h2>Certifications</h2>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <div class="cert-icon">☁️</div>
+          <div class="cert-info">
+            <strong>Microsoft Azure AI-900</strong>
+            <span>Azure AI Fundamentals — Microsoft</span>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🤖</div>
+          <div class="cert-info">
+            <strong>Google AI Agents</strong>
+            <span>AI Agents Fundamentals — Google</span>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🧠</div>
+          <div class="cert-info">
+            <strong>BCG GenAI Simulation</strong>
+            <span>Generative AI Job Simulation — Forage</span>
+          </div>
+        </div>
+      </div>
     </section>
 
   </main>
 
+  <!-- CONTACT -->
+  <section id="contact" style="background:var(--bg2);max-width:100%;padding:6rem 0;">
+    <div style="max-width:1100px;margin:0 auto;padding:0 4rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;" class="fade-in">
+      <div>
+        <div class="section-label">Get In Touch</div>
+        <h2 style="margin-bottom:1rem;">Let's work<br>together.</h2>
+        <p style="color:var(--muted);font-size:1rem;font-weight:300;margin-bottom:2rem;">
+          I'm actively seeking internship opportunities in AI, ML, and Data Science
+          across Australia. If you're hiring or just want to connect, reach out.
+        </p>
+        <div class="contact-details">
+          <a href="mailto:swarnabhaghosh2005@gmail.com" class="contact-item">
+            <div class="icon">📧</div>
+            swarnabhaghosh2005@gmail.com
+          </a>
+          <a href="https://linkedin.com/in/swarnabha-ghosh777" target="_blank" class="contact-item">
+            <div class="icon"><i class="devicon-linkedin-plain"></i></div>
+            linkedin.com/in/swarnabha-ghosh777
+          </a>
+          <a href="https://github.com/SamGomes7125" target="_blank" class="contact-item">
+            <div class="icon"><i class="devicon-github-original"></i></div>
+            github.com/SamGomes7125
+          </a>
+          <div class="contact-item">
+            <div class="icon">📍</div>
+            Melbourne, Australia
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:2.5rem;text-align:center;">
+        <div style="font-size:3rem;margin-bottom:1rem;">👋</div>
+        <h3 style="font-family:var(--heading-font);font-size:1.3rem;font-weight:800;margin-bottom:0.5rem;">Open to Opportunities</h3>
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.8rem;">
+          Actively looking for internships in AI, ML, and Data Science in Australia.
+          Available for full-time internship from mid-2025.
+        </p>
+        <a href="mailto:swarnabhaghosh2005@gmail.com" class="btn-primary" style="display:inline-block;">
+          Say Hello →
+        </a>
+      </div>
+    </div>
+  </section>
+
   <footer>
-    <p>© 2025 Swarnabha Ghosh</p>
+    <p>© 2025 Swarnabha Ghosh · Built with care in Melbourne 🇦🇺</p>
   </footer>
+
+  <script>
+    // Fade in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
